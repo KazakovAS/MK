@@ -31,7 +31,6 @@ function createPlayer(player, character) {
   const characterBox = document.createElement('div');
   const life = document.createElement('div');
   const name = document.createElement('div');
-  const p = document.createElement('p');
   const img = document.createElement('img');
 
   playerBox.classList.add(player);
@@ -39,9 +38,6 @@ function createPlayer(player, character) {
   characterBox.classList.add('character');
   life.classList.add('life');
   name.classList.add('name');
-
-  p.textContent = character.name;
-  img.src = character.img;
 
   arenas.appendChild(playerBox);
 
@@ -52,6 +48,9 @@ function createPlayer(player, character) {
   progressBar.appendChild(name);
 
   characterBox.appendChild(img);
+
+  img.src = character.img;
+  name.textContent = character.name;
 }
 
 
