@@ -13,7 +13,7 @@ const player1 = {
   attack: function() {
     console.log('Fight...');
   }
-}
+};
 
 const player2 = {
   name: 'SUB-ZERO',
@@ -23,7 +23,7 @@ const player2 = {
   attack: function() {
     console.log('Fight...');
   }
-}
+};
 
 function createPlayer(player, character) {
   const playerBox = document.createElement('div');
@@ -38,6 +38,9 @@ function createPlayer(player, character) {
   characterBox.classList.add('character');
   life.classList.add('life');
   name.classList.add('name');
+  
+  img.src = character.img;
+  name.textContent = character.name;
 
   arenas.appendChild(playerBox);
 
@@ -48,9 +51,6 @@ function createPlayer(player, character) {
   progressBar.appendChild(name);
 
   characterBox.appendChild(img);
-
-  img.src = character.img;
-  name.textContent = character.name;
 }
 
 
