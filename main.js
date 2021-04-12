@@ -60,34 +60,46 @@ function createPlayer(player) {
 function changeHP(player) {
   const playerLife = document.querySelector('.player' + player.player + ' .life');
 
-  player.hp -= Math.ceil(Math.random() * 20);
+  player.hp -= getRandomDamage(20);
 
   if (player.hp <= 0) {
     player.hp = 0;
-
-    if (player.player === 1) {
-      arenas.appendChild(win(player2));
-    } else {
-      arenas.appendChild(win(player1));
-    }
   }
 
   playerLife.style.width = player.hp + '%';
 }
 
-function win(player) {
+function win(playerName) {
   const winTitle = createElement('div', 'loseTitle');
 
-  winTitle.textContent = `${player.name} wins`;
-  randomButton.disabled = true;
+  if (playerName) {
+    winTitle.textContent = `${playerName} wins`;
+  } else {
+    winTitle.textContent = `draw`;
+  }
 
   return winTitle;
 }
 
+function getRandomDamage(multiplier) {
+  return Math.ceil(Math.random() * multiplier);
+}
 
 randomButton.addEventListener('click', function() {
   changeHP(player1);
   changeHP(player2);
+
+  if (player1.hp === 0 || player2.hp === 0) {
+    randomButton.disabled = true;
+  }
+
+  if (player1.hp === 0 && player1.hp < player2.hp) {
+    arenas.appendChild(win(player2.name));
+  } else if (player2.hp === 0 && player2.hp < player1.hp) {
+    arenas.appendChild(win(player1.name));
+  } else if (player1.hp === 0 && player1.hp === 0) {
+    arenas.appendChild(win());
+  }
 })
 
 arenas.appendChild(createPlayer(player1));
