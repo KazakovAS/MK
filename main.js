@@ -8,9 +8,9 @@ const player1 = {
   hp: 100,
   img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
   weapon: [ 'kunai' ],
-  attack: function() {
-    console.log('Fight...');
-  }
+  changeHP: changeHP,
+  elHP: elHP,
+  renderHP: renderHP
 };
 
 const player2 = {
@@ -19,9 +19,9 @@ const player2 = {
   hp: 100,
   img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
   weapon: [ 'sword' ],
-  attack: function() {
-    console.log('Fight...');
-  }
+  changeHP: changeHP,
+  elHP: elHP,
+  renderHP: renderHP
 };
 
 function createElement(tagName, className) {
@@ -57,16 +57,20 @@ function createPlayer(player) {
   return playerBox;
 }
 
-function changeHP(player) {
-  const playerLife = document.querySelector('.player' + player.player + ' .life');
+function changeHP(randomDamage) {
+  this.hp -= randomDamage;
 
-  player.hp -= getRandomDamage(20);
-
-  if (player.hp <= 0) {
-    player.hp = 0;
+  if (this.hp <= 0) {
+    this.hp = 0;
   }
+}
 
-  playerLife.style.width = player.hp + '%';
+function elHP() {
+  return document.querySelector('.player' + this.player + ' .life');
+}
+
+function renderHP() {
+  this.elHP().style.width = this.hp + '%';
 }
 
 function win(playerName) {
@@ -81,13 +85,19 @@ function win(playerName) {
   return winTitle;
 }
 
-function getRandomDamage(multiplier) {
+function getRandom(multiplier) {
   return Math.ceil(Math.random() * multiplier);
 }
 
 randomButton.addEventListener('click', function() {
-  changeHP(player1);
-  changeHP(player2);
+  player1.changeHP(getRandom(20));
+  player2.changeHP(getRandom(20));
+
+  player1.elHP();
+  player2.elHP();
+
+  player1.renderHP();
+  player2.renderHP();
 
   if (player1.hp === 0 || player2.hp === 0) {
     randomButton.disabled = true;
