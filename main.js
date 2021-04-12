@@ -62,17 +62,16 @@ function changeHP(player) {
 
   player.hp -= Math.ceil(Math.random() * 20);
 
-  if (player.hp <= 0 && player.player === 1) {
+  if (player.hp <= 0) {
     player.hp = 0;
-    arenas.appendChild(win(player2));
+
+    if (player.player === 1) {
+      arenas.appendChild(win(player2));
+    } else {
+      arenas.appendChild(win(player1));
+    }
   }
 
-  if (player.hp <= 0 && player.player === 2) {
-    player.hp = 0;
-    arenas.appendChild(win(player1));
-  }
-
-  console.log(`${player.name} осталось ${player.hp}`);
   playerLife.style.width = player.hp + '%';
 }
 
