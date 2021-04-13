@@ -1,9 +1,6 @@
 const arenas = document.querySelector('.arenas');
 const randomButton = document.querySelector('.button');
 
-const reloadWrap = createElement('div', 'reloadWrap');
-const reloadButton = createElement('button', 'button');
-
 
 const player1 = {
   player: 1,
@@ -38,10 +35,18 @@ function createElement(tagName, className) {
 }
 
 function createReloadButton() {
+  const reloadWrap = createElement('div', 'reloadWrap');
+  const reloadButton = createElement('button', 'button');
+
   arenas.appendChild(reloadWrap);
   reloadWrap.appendChild(reloadButton);
 
   reloadButton.textContent = `Restart`;
+  reloadWrap.style.display = 'block';
+
+  reloadButton.addEventListener('click', function() {
+    window.location.reload();
+  })
 }
 
 function createPlayer(player) {
@@ -99,11 +104,8 @@ function getRandom(multiplier) {
   return Math.ceil(Math.random() * multiplier);
 }
 
-reloadButton.addEventListener('click', function() {
-  window.location.reload();
-})
 
-randomButton.addEventListener('click', function(createReloadButton) {
+randomButton.addEventListener('click', function() {
   player1.changeHP(getRandom(20));
   player2.changeHP(getRandom(20));
 
@@ -116,7 +118,7 @@ randomButton.addEventListener('click', function(createReloadButton) {
   if (player1.hp === 0 || player2.hp === 0) {
     randomButton.disabled = true;
 
-    reloadWrap.style.display = 'block';
+    createReloadButton()
   }
 
   if (player1.hp === 0 && player1.hp < player2.hp) {
@@ -130,4 +132,3 @@ randomButton.addEventListener('click', function(createReloadButton) {
 
 arenas.appendChild(createPlayer(player1));
 arenas.appendChild(createPlayer(player2));
-createReloadButton();
