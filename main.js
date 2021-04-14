@@ -129,48 +129,58 @@ function enemyAttack() {
   };
 }
 
-formFight.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const enemy = enemyAttack();
-  const attack = {};
+function playerAttack() {
+  const result = {};
 
   for (let item of formFight) {
     if (item.checked === true || item.name === 'hit') {
-      attack.value = getRandom(HIT[item.value]);
-      attack.hit = item.value;
+      result.value = getRandom(HIT[item.value]);
+      result.hit = item.value;
     }
 
     if (item.checked === true || item.name === 'defense') {
-      attack.defense = item.value;
+      result.defense = item.value;
     }
 
     item.checked = false;
   }
 
-  if (attack.hit !== enemy.defense) {
-      player2.changeHP(attack.value);
-      player2.elHP();
-      player2.renderHP();
+  return result;
+}
+
+function getDamage() {
+  const enemy = enemyAttack();
+  const player = playerAttack();
+
+  if (player.hit !== enemy.defense) {
+    player2.changeHP(player.value);
+    player2.elHP();
+    player2.renderHP();
   } else {
-      console.log('Противник заблокировал урон');
+    console.log('Противник заблокировал урон');
   }
 
-   if (enemy.hit !== attack.defense) {
-      player1.changeHP(attack.value);
-      player1.elHP();
-      player1.renderHP();
-   } else {
-      console.log('Вы заблокировали урон');
-   }
+  if (enemy.hit !== player.defense) {
+    player1.changeHP(enemy.value);
+    player1.elHP();
+    player1.renderHP();
+  } else {
+    console.log('Вы заблокировали урон');
+  }
+}
 
-   if (player1.hp === 0 && player1.hp < player2.hp) {
-      arenas.appendChild(win(player2.name));
-   } else if (player2.hp === 0 && player2.hp < player1.hp) {
-      arenas.appendChild(win(player1.name));
-   } else if (player1.hp === 0 && player1.hp === 0) {
-      arenas.appendChild(win());
-   }
+formFight.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  getDamage();
+
+  if (player1.hp === 0 && player1.hp < player2.hp) {
+    arenas.appendChild(win(player2.name));
+  } else if (player2.hp === 0 && player2.hp < player1.hp) {
+    arenas.appendChild(win(player1.name));
+  } else if (player1.hp === 0 && player1.hp === 0) {
+    arenas.appendChild(win());
+  }
 })
 
 arenas.appendChild(createPlayer(player1));
