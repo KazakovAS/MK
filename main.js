@@ -133,12 +133,12 @@ function playerAttack() {
   const result = {};
 
   for (let item of formFight) {
-    if (item.checked === true || item.name === 'hit') {
+    if (item.checked === true && item.name === 'hit') {
       result.value = getRandom(HIT[item.value]);
       result.hit = item.value;
     }
 
-    if (item.checked === true || item.name === 'defense') {
+    if (item.checked === true && item.name === 'defense') {
       result.defense = item.value;
     }
 
