@@ -99,12 +99,6 @@ function renderHP() {
 function win(playerName) {
   const winTitle = createElement('div', 'loseTitle');
 
-  if (player1.hp === 0 || player2.hp === 0) {
-    randomButton.disabled = true;
-
-    createReloadButton();
-  }
-
   if (playerName) {
     winTitle.textContent = `${playerName} wins`;
   } else {
@@ -169,10 +163,12 @@ function getDamage() {
   }
 }
 
-formFight.addEventListener('submit', function(e) {
-  e.preventDefault();
+function showResult() {
+  if (player1.hp === 0 || player2.hp === 0) {
+    randomButton.disabled = true;
 
-  getDamage();
+    createReloadButton();
+  }
 
   if (player1.hp === 0 && player1.hp < player2.hp) {
     arenas.appendChild(win(player2.name));
@@ -181,6 +177,13 @@ formFight.addEventListener('submit', function(e) {
   } else if (player1.hp === 0 && player1.hp === 0) {
     arenas.appendChild(win());
   }
+}
+
+formFight.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  getDamage();
+  showResult();
 })
 
 arenas.appendChild(createPlayer(player1));
