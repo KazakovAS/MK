@@ -192,9 +192,9 @@ function getDamage() {
     player2.elHP();
     player2.renderHP();
 
-    generateLogs('hit', player1, player2);
+    generateLogs('hit', player1, player2, player.value);
   } else {
-    console.log('Противник заблокировал урон');
+    generateLogs('defence', player1, player2);
   }
 
   if (enemy.hit !== player.defense) {
@@ -202,9 +202,9 @@ function getDamage() {
     player1.elHP();
     player1.renderHP();
 
-    generateLogs('hit', player2, player1);
+    generateLogs('hit', player2, player1, enemy.value);
   } else {
-    console.log('Вы заблокировали урон');
+    generateLogs('defence', player2, player1);
   }
 }
 
@@ -217,16 +217,76 @@ function showResult() {
 
   if (player1.hp === 0 && player1.hp < player2.hp) {
     arenas.appendChild(win(player2.name));
+    generateLogs('end', player1, player2);
   } else if (player2.hp === 0 && player2.hp < player1.hp) {
     arenas.appendChild(win(player1.name));
+    generateLogs('end', player1, player2);
   } else if (player1.hp === 0 && player1.hp === 0) {
     arenas.appendChild(win());
+    generateLogs('draw', player1, player2);
   }
 }
 
-function generateLogs(type, player1, player2) {
-  const text = logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-  const el = `<p>${text}</p>`;
+function getTime() {
+  const time = new Date;
+
+  return `${time.getHours()}:${time.getMinutes()}`
+}
+
+function generateLogs(type, player1, player2, damage) {
+  let text;
+  let el;
+
+  switch(type) {
+    case 'start':
+      text = logs[type]
+       .replace('[time]', getTime())
+       .replace('[player1]', player1.name)
+       .replace('[player2]', player2.name);
+
+      el = `<p>${text}</p>`;
+
+      break;
+
+    case 'hit':
+      text = logs[type][getRandom(type.length)]
+       .replace('[playerKick]', player1.name)
+       .replace('[playerDefence]', player2.name);
+
+      el = `<p>${getTime()} - ${text}. Получено [${damage}] урона, [${player2.hp}/100]</p>`;
+
+      break;
+
+    case 'defence':
+      text = logs[type][getRandom(type.length)]
+       .replace('[playerDefence]', player1.name)
+       .replace('[playerKick]', player2.name);
+
+      el = `<p>${getTime()} - ${text}</p>`;
+
+      break;
+
+    case 'end':
+      text = logs[type][getRandom(type.length)]
+       .replace('[playerWins]', player1.name)
+       .replace('[playerLose]', player2.name);
+
+      el = `<p>${text}</p>`;
+
+      break;
+
+    case 'draw':
+      text = logs[type];
+
+      el = `<p>${text}</p>`;
+
+      break;
+
+    default:
+      text = 'Нет такого кейса';
+
+      el = `<p>${text}</p>`;
+  }
 
   chat.insertAdjacentHTML('afterbegin', el)
 }
@@ -238,5 +298,6 @@ formFight.addEventListener('submit', function(e) {
   showResult();
 })
 
+generateLogs('start', player1, player2);
 arenas.appendChild(createPlayer(player1));
 arenas.appendChild(createPlayer(player2));
