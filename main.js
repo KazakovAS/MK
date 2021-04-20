@@ -149,16 +149,19 @@ function win(playerName) {
   return winTitle;
 }
 
-function getRandom(multiplier) {
-  return Math.ceil(Math.random() * multiplier);
+function getRandomFromRange(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function enemyAttack() {
-  const hit = ATTACK[getRandom(3) - 1];
-  const defense = ATTACK[getRandom(3) - 1];
+  const hit = ATTACK[getRandomFromRange(0, ATTACK.length - 1)];
+  const defense = ATTACK[getRandomFromRange(0, ATTACK.length - 1)];
 
   return result = {
-    value: getRandom(HIT[hit]),
+    value: getRandomFromRange(0, HIT[hit]),
     hit,
     defense
   };
@@ -169,7 +172,7 @@ function playerAttack() {
 
   for (let item of formFight) {
     if (item.checked === true && item.name === 'hit') {
-      result.value = getRandom(HIT[item.value]);
+      result.value = getRandomFromRange(0, HIT[item.value]);
       result.hit = item.value;
     }
 
@@ -249,7 +252,7 @@ function generateLogs(type, player1, player2, damage) {
       break;
 
     case 'hit':
-      text = logs[type][getRandom(type.length)]
+      text = logs[type][getRandomFromRange(0, type.length - 1)]
        .replace('[playerKick]', player1.name)
        .replace('[playerDefence]', player2.name);
 
@@ -258,7 +261,7 @@ function generateLogs(type, player1, player2, damage) {
       break;
 
     case 'defence':
-      text = logs[type][getRandom(type.length)]
+      text = logs[type][getRandomFromRange(0, type.length -1)]
        .replace('[playerDefence]', player1.name)
        .replace('[playerKick]', player2.name);
 
@@ -267,7 +270,7 @@ function generateLogs(type, player1, player2, damage) {
       break;
 
     case 'end':
-      text = logs[type][getRandom(type.length)]
+      text = logs[type][getRandomFromRange(0, type.length - 1)]
        .replace('[playerWins]', player1.name)
        .replace('[playerLose]', player2.name);
 
@@ -286,6 +289,8 @@ function generateLogs(type, player1, player2, damage) {
       text = 'Нет такого кейса';
 
       el = `<p>${text}</p>`;
+
+      break;
   }
 
   chat.insertAdjacentHTML('afterbegin', el)
