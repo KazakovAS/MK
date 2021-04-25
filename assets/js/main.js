@@ -1,10 +1,11 @@
-import { arenas } from "./const.js";
+import {arenas, formFight} from "./const.js";
 import { player1 } from "./const.js";
 import { player2 } from "./const.js";
 
 import createElement from "./createElement.js";
 import generateLogs from "./generateLogs.js";
 import getDamage from "./getDamage.js";
+import showResult from "./showResult.js";
 
 function createPlayer(player) {
   const playerBox = createElement('div', 'player' + player.player);
@@ -28,6 +29,13 @@ function createPlayer(player) {
 
   return playerBox;
 }
+
+formFight.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  getDamage();
+  showResult();
+})
 
 
 function init() {

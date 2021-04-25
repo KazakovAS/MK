@@ -2,15 +2,7 @@ import { HIT } from "./const.js";
 import { formFight } from "./const.js";
 
 import getRandomFromRange from "./getRandomFromRange.js";
-import getDamage from "./getDamage.js";
-import showResult from "./showResult.js";
 
-formFight.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  getDamage();
-  showResult();
-})
 
 function playerAttack() {
   const result = {};
