@@ -1,7 +1,7 @@
-import getRandomFromRange from "./getRandomFromRange.js";
+import { getRandomFromRange } from "./utils/";
 
-import { ATTACK } from "./const.js";
-import { HIT } from "./const.js";
+import { ATTACK } from "./constants";
+import { HIT } from "./constants";
 
 function enemyAttack() {
   let result;

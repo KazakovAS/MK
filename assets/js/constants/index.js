@@ -1,32 +1,24 @@
-import changeHP from "./changeHP.js";
-import elHP from "./elHP.js";
-import renderHP from "./renderHP.js";
+import Player from '../Player/'
 
 export const arenas = document.querySelector('.arenas');
 export const randomButton = document.querySelector('.button');
 export const formFight = document.querySelector('.control');
 
-export const player1 = {
+export const player1 = new Player({
   player: 1,
   name: 'SCORPION',
   hp: 100,
   img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
-  weapon: [ 'kunai' ],
-  changeHP,
-  elHP,
-  renderHP
-};
+  rootSelector: 'arenas'
+});
 
-export const player2 = {
+export const player2 = new Player({
   player: 2,
   name: 'SUB-ZERO',
   hp: 100,
   img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
-  weapon: [ 'sword' ],
-  changeHP,
-  elHP,
-  renderHP
-};
+  rootSelector: 'arenas'
+});
 
 export const HIT = {
   head: 30,
