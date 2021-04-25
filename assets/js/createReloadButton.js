@@ -1,5 +1,4 @@
-import createElement from "./createElement.js";
-
+import { createElement } from "./utils/";
 import { arenas } from "./constants";
 
 function createReloadButton() {

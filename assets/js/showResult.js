@@ -4,7 +4,7 @@ import { arenas } from "./constants";
 import { randomButton } from "./constants";
 
 import generateLogs from "./generateLogs.js";
-import createElement from "./createElement.js";
+import { createElement } from "./utils/";
 import createReloadButton from "./createReloadButton.js";
 
 function win(playerName) {
