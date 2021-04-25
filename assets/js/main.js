@@ -3,6 +3,8 @@ import { player1 } from "./const.js";
 import { player2 } from "./const.js";
 
 import createElement from "./createElement.js";
+import generateLogs from "./generateLogs.js";
+import getDamage from "./getDamage.js";
 
 function createPlayer(player) {
   const playerBox = createElement('div', 'player' + player.player);
@@ -27,12 +29,17 @@ function createPlayer(player) {
   return playerBox;
 }
 
-arenas.appendChild(createPlayer(player1));
-arenas.appendChild(createPlayer(player2));
 
-import getDamage from "./getDamage.js";
+function init() {
+  arenas.appendChild(createPlayer(player1));
+  arenas.appendChild(createPlayer(player2));
 
-import generateLogs from "./generateLogs.js";
-generateLogs('start', player1, player2);
+  generateLogs('start', player1, player2);
+}
+
+init();
+
+
+
 
 
