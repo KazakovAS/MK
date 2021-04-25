@@ -1,4 +1,4 @@
-import { chat } from "./const.js";
+import { chat } from "./constants";
 import getTextLog from "./getTextLog.js";
 import getTime from "./getTime.js";
 

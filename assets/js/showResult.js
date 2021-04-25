@@ -1,7 +1,7 @@
-import { player1 } from "./const.js";
-import { player2 } from "./const.js";
-import { arenas } from "./const.js";
-import { randomButton } from "./const.js";
+import { player1 } from "./constants";
+import { player2 } from "./constants";
+import { arenas } from "./constants";
+import { randomButton } from "./constants";
 
 import generateLogs from "./generateLogs.js";
 import createElement from "./createElement.js";

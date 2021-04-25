@@ -1,5 +1,5 @@
-import { player1 } from "./const.js";
-import { player2 } from "./const.js";
+import { player1 } from "./constants";
+import { player2 } from "./constants";
 
 import enemyAttack from "./enemyAttack.js";
 import playerAttack from "./playerAttack.js";

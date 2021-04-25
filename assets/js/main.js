@@ -1,31 +1,31 @@
-import {arenas, formFight} from "./const.js";
-import { player1 } from "./const.js";
-import { player2 } from "./const.js";
+import {arenas, formFight} from "./constants";
+import { player1 } from "./constants";
+import { player2 } from "./constants";
 
 import createElement from "./createElement.js";
 import generateLogs from "./generateLogs.js";
 import getDamage from "./getDamage.js";
 import showResult from "./showResult.js";
 
-function createPlayer(player) {
-  const playerBox = createElement('div', 'player' + player.player);
+function createPlayer({ player, hp, name, img }) {
+  const playerBox = createElement('div', `player${player}`);
   const progressBar  = createElement('div', 'progressbar');
   const characterBox = createElement('div', 'character');
-  const life = createElement('div', 'life');
-  const name = createElement('div', 'name');
-  const img = createElement('img');
+  const lifeEl = createElement('div', 'life');
+  const nameEl = createElement('div', 'name');
+  const imgEl = createElement('img');
 
-  life.style.width = player.hp + '%';
-  img.src = player.img;
-  name.textContent = player.name;
+  lifeEl.style.width = hp + '%';
+  imgEl.src = img;
+  nameEl.textContent = name;
 
   playerBox.appendChild(progressBar);
   playerBox.appendChild(characterBox);
 
-  progressBar.appendChild(life);
-  progressBar.appendChild(name);
+  progressBar.appendChild(lifeEl);
+  progressBar.appendChild(nameEl);
 
-  characterBox.appendChild(img);
+  characterBox.appendChild(imgEl);
 
   return playerBox;
 }

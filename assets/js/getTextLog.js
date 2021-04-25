@@ -1,8 +1,7 @@
-import {logs} from "./const.js";
+import {logs} from "./constants";
 
 import getTime from "./getTime.js";
-import getRandomFromRange from "./getRandomFromRange.js";
-// import generateLogs from "./generateLogs";
+import { getRandomFromRange } from "./utils/";
 
 function getTextLog(type, playerName1, playerName2) {
   switch(type) {
@@ -11,7 +10,6 @@ function getTextLog(type, playerName1, playerName2) {
           .replace('[time]', getTime())
           .replace('[player1]', playerName1)
           .replace('[player2]', playerName2);
-      // el = `<p>${text}</p>`;
 
     case 'hit':
       return logs[type][getRandomFromRange(0, type.length - 1)]
@@ -27,11 +25,9 @@ function getTextLog(type, playerName1, playerName2) {
       return logs[type][getRandomFromRange(0, type.length - 1)]
           .replace('[playerWins]', playerName1)
           .replace('[playerLose]', playerName2);
-      // el = `<p>${text}</p>`;
 
     case 'draw':
       return logs[type];
-      // el = `<p>${text}</p>`;
   }
 }
 
